@@ -151,14 +151,38 @@
         body: formData
       });
       
-      const result = await response.json();
-      
       if (!response.ok) {
-        throw new Error((result.error || 'Transcription failed') + (result.details ? ': ' + result.details : ''));
+        const contentType = response.headers.get("content-type");
+        if (contentType && contentType.indexOf("application/json") !== -1) {
+          const result = await response.json();
+          throw new Error((result.error || 'Transcription failed') + (result.details ? ': ' + result.details : ''));
+        }
+        throw new Error('Transcription failed with status: ' + response.status);
       }
       
-      exactHindko = formatSentences(result.exact_hindko || '');
-      romanUrdu = formatSentences(result.roman_urdu || '');
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder("utf-8");
+      
+      let fullText = "";
+      exactHindko = "";
+      romanUrdu = "";
+      
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        
+        fullText += decoder.decode(value, { stream: true });
+        
+        const exactMatch = fullText.match(/EXACT:\s*(.*?)(?=\nROMAN:|$)/s);
+        const romanMatch = fullText.match(/ROMAN:\s*(.*)/s);
+        
+        if (exactMatch) {
+          exactHindko = formatSentences(exactMatch[1].trim());
+        }
+        if (romanMatch) {
+          romanUrdu = formatSentences(romanMatch[1].trim());
+        }
+      }
       
     } catch (err) {
       errorMessage = err.message;

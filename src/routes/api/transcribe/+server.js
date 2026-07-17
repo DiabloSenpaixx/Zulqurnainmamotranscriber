@@ -43,9 +43,17 @@ export async function POST({ request }) {
       location: location
     });
     
-    const prompt = `You are a strict translation utility. Listen to the provided audio spoken in Hazara Hindko (the specific Hindko dialect spoken in the Hazara region of Pakistan KPK). Return a JSON object with exactly two keys: \`exact_hindko\` (the literal transcription of the exact spoken words transliterated into Roman script) and \`roman_urdu\` (the meaning translated into Roman Urdu script). Instruct: where there is "vaddi" change it to "baddi", where there is "vekhde" change it to "dekhde", where there is "jeda" change it to "jerha", where there is "chhod" change it to "chorh", where there is "jane" change it to "julden", where there is "vi" change it to "b", where there is "rehnen" change it to "rehden", where there is "ajda" change it to "ajra", where there is "ana" change it to "arna", and where there is "ji" change it to "g". Example output: { "exact_hindko": "tu kai krdain", "roman_urdu": "tum kia kr rhai ho" }`;
+    const prompt = `You are a strict translation utility. Listen to the provided audio spoken in Hazara Hindko (the specific Hindko dialect spoken in the Hazara region of Pakistan KPK). Transliterate the exact spoken words into Roman script, and translate the meaning into Roman Urdu script. Apply these specific spelling rules to your transcription: where there is "vaddi" change it to "baddi", where there is "vekhde" change it to "dekhde", where there is "jeda" change it to "jerha", where there is "chhod" change it to "chorh", where there is "jane" change it to "julden", where there is "vi" change it to "b", where there is "rehnen" change it to "rehden", where there is "ajda" change it to "ajra", where there is "ana" change it to "arna", and where there is "ji" change it to "g". 
 
-    const response = await ai.models.generateContent({
+You MUST output exactly in this text format and nothing else:
+EXACT: <literal transcription of the exact spoken words in Roman script>
+ROMAN: <the meaning translated into Roman Urdu script>
+
+Example output:
+EXACT: tu kai krdain
+ROMAN: tum kia kr rhai ho`;
+
+    const stream = await ai.models.generateContentStream({
       model: model,
       contents: [
         {
@@ -60,22 +68,33 @@ export async function POST({ request }) {
             }
           ]
         }
-      ],
-      config: {
-        responseMimeType: "application/json",
-        responseSchema: {
-          type: "OBJECT",
-          properties: {
-            exact_hindko: { type: "STRING" },
-            roman_urdu: { type: "STRING" }
-          },
-          required: ["exact_hindko", "roman_urdu"]
+      ]
+    });
+
+    const readable = new ReadableStream({
+      async start(controller) {
+        try {
+          for await (const chunk of stream) {
+            if (chunk.text) {
+              controller.enqueue(new TextEncoder().encode(chunk.text));
+            }
+          }
+        } catch (e) {
+          console.error("Stream generation error:", e);
+          controller.error(e);
+        } finally {
+          controller.close();
         }
       }
     });
 
-    const parsedResponse = JSON.parse(response.text);
-    return json(parsedResponse);
+    return new Response(readable, {
+      headers: {
+        'Content-Type': 'text/plain',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive'
+      }
+    });
   } catch (error) {
     console.error('Transcription error:', error);
     return json({ error: 'Failed to transcribe audio.', details: error.message }, { status: 500 });
