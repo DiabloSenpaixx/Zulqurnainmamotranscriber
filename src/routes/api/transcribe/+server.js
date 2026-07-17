@@ -58,9 +58,11 @@ CRITICAL INSTRUCTION FOR "EXACT": Your EXACT output MUST be a strict, literal ph
 
 Apply these specific spelling rules ONLY to your EXACT transcription (Hazara Hindko), DO NOT apply them to the ROMAN translation (Roman Urdu): where there is "vaddi" change it to "baddi", where there is "vekhde" change it to "dekhde", where there is "jeda" change it to "jerha", where there is "chhod" change it to "chorh", where there is "jane" change it to "julden", where there is "vi" change it to "b", where there is "rehnen" change it to "rehden", where there is "ajda" change it to "ajra", where there is "ana" change it to "arna", where there is "ji" change it to "g", and where there is "gande" change it to "kendey". 
 
+IMPORTANT: You must transcribe and translate the ENTIRE audio. Do not summarize, do not skip any parts, and do not stop early. Ensure both EXACT and ROMAN sections are complete for the full duration of the audio.
+
 You MUST output exactly in this text format and nothing else:
-EXACT: <literal phonetic transcription of the exact spoken Hindko words in Roman script>
-ROMAN: <the meaning translated into natural Roman Urdu script, without applying the spelling rules above>
+EXACT: <literal phonetic transcription of the ENTIRE audio in Roman script>
+ROMAN: <the complete meaning translated into natural Roman Urdu script, without applying the spelling rules above>
 
 Example output:
 EXACT: tu kai krdain
