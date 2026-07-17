@@ -52,11 +52,15 @@ export async function POST({ request }) {
       });
     }
     
-    const prompt = `You are a strict translation utility. Listen to the provided audio spoken in Hazara Hindko (the specific Hindko dialect spoken in the Hazara region of Pakistan KPK). Transliterate the exact spoken words into Roman script, and translate the meaning into Roman Urdu script. Apply these specific spelling rules ONLY to your EXACT transcription (Hazara Hindko), DO NOT apply them to the ROMAN translation (Roman Urdu): where there is "vaddi" change it to "baddi", where there is "vekhde" change it to "dekhde", where there is "jeda" change it to "jerha", where there is "chhod" change it to "chorh", where there is "jane" change it to "julden", where there is "vi" change it to "b", where there is "rehnen" change it to "rehden", where there is "ajda" change it to "ajra", where there is "ana" change it to "arna", where there is "ji" change it to "g", and where there is "gande" change it to "kendey". 
+    const prompt = `You are a strict transcription and translation utility. Listen to the provided audio spoken in Hazara Hindko (the specific Hindko dialect spoken in the Hazara region of Pakistan KPK). 
+
+CRITICAL INSTRUCTION FOR "EXACT": Your EXACT output MUST be a strict, literal phonetic transcription of the audio. Write exactly the sounds the speaker makes in Roman script. Do NOT translate, correct, or "Urdu-ify" the words. For example, if they say "krdain", do NOT write "kar rahe", write "krdain". If they say "gande", write "gande" (which will be corrected to kendey). Do not leak standard Urdu into the EXACT output.
+
+Apply these specific spelling rules ONLY to your EXACT transcription (Hazara Hindko), DO NOT apply them to the ROMAN translation (Roman Urdu): where there is "vaddi" change it to "baddi", where there is "vekhde" change it to "dekhde", where there is "jeda" change it to "jerha", where there is "chhod" change it to "chorh", where there is "jane" change it to "julden", where there is "vi" change it to "b", where there is "rehnen" change it to "rehden", where there is "ajda" change it to "ajra", where there is "ana" change it to "arna", where there is "ji" change it to "g", and where there is "gande" change it to "kendey". 
 
 You MUST output exactly in this text format and nothing else:
-EXACT: <literal transcription of the exact spoken words in Roman script>
-ROMAN: <the meaning translated into Roman Urdu script, which should be natural Roman Urdu without applying the above spelling rules>
+EXACT: <literal phonetic transcription of the exact spoken Hindko words in Roman script>
+ROMAN: <the meaning translated into natural Roman Urdu script, without applying the spelling rules above>
 
 Example output:
 EXACT: tu kai krdain
