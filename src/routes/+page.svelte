@@ -154,7 +154,7 @@
       const result = await response.json();
       
       if (!response.ok) {
-        throw new Error(result.error || 'Transcription failed');
+        throw new Error((result.error || 'Transcription failed') + (result.details ? ': ' + result.details : ''));
       }
       
       exactHindko = formatSentences(result.exact_hindko || '');
