@@ -7,7 +7,7 @@
   let timeElapsed = $state(0);
   let timerInterval = null;
   
-  let selectedModel = $state('gemini-2.5-pro');
+  let selectedModel = $state('gemini-2.5-flash');
   let audioSource = $state('microphone');
   let isProcessing = $state(false);
   let exactHindko = $state('');
