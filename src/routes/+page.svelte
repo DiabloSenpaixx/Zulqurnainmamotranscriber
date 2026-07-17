@@ -224,7 +224,7 @@
       >
         <option value="gemini-3.1-flash-lite">Gemini 3.1 Flash Lite (Fully Paid)</option>
         <option value="gemini-2.5-flash">Gemini 2.5 Flash (Fully Paid)</option>
-        <option value="gemini-2.5-pro">Gemini 2.5 Pro (Fully Paid)</option>
+        <option value="gemini-3.5-flash">Gemini 3.5 Flash (Fully Paid)</option>
       </select>
     </div>
   </header>
