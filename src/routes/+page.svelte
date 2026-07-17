@@ -7,7 +7,7 @@
   let timeElapsed = $state(0);
   let timerInterval = null;
   
-  let selectedModel = $state('gemini-3.5-flash');
+  let selectedModel = $state('gemini-2.5-pro');
   let audioSource = $state('microphone');
   let isProcessing = $state(false);
   let exactHindko = $state('');
@@ -189,9 +189,10 @@
         bind:value={selectedModel}
         class="bg-gray-100 border-none text-sm rounded-lg focus:ring-2 focus:ring-blue-500 py-2 px-3 text-gray-700 outline-none appearance-none cursor-pointer"
       >
-        <option value="gemini-3.5-flash">Gemini 3.5 Flash</option>
-        <option value="gemini-3.1-flash-lite">Gemini 3.1 Flash Lite</option>
-        <option value="gemini-3.1-pro-preview">Gemini 3.1 Pro</option>
+        <option value="gemini-2.5-pro">Gemini 2.5 Pro (Highest Accuracy)</option>
+        <option value="gemini-2.5-flash">Gemini 2.5 Flash (Fast & Cost Effective)</option>
+        <option value="gemini-3.5-flash">Gemini 3.5 Flash (High Speed / Large Files)</option>
+        <option value="gemini-1.5-pro">Gemini 1.5 Pro (Stable Fallback)</option>
       </select>
     </div>
   </header>

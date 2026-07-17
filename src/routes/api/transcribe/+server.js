@@ -6,21 +6,42 @@ export async function POST({ request }) {
   try {
     const data = await request.formData();
     const audioBlob = data.get('audio');
-    const model = data.get('model');
+    const modelId = data.get('model');
+    const model = modelId || 'gemini-2.5-pro';
     
     if (!audioBlob || !model) {
       return json({ error: 'Missing audio or model parameters.' }, { status: 400 });
     }
 
-    const apiKey = env.GEMINI_API_KEY;
-    if (!apiKey) {
-      return json({ error: 'GEMINI_API_KEY is not configured on the server.' }, { status: 500 });
+    const projectId = env.GOOGLE_CLOUD_PROJECT_ID;
+    const location = env.GOOGLE_CLOUD_LOCATION || 'us-central1';
+
+    if (!projectId) {
+      return json({ error: 'GOOGLE_CLOUD_PROJECT_ID is not configured on the server.' }, { status: 500 });
     }
 
     const buffer = await audioBlob.arrayBuffer();
     const base64Audio = Buffer.from(buffer).toString('base64');
 
-    const ai = new GoogleGenAI({ apiKey });
+    // In local development, use the file path
+    if (env.GOOGLE_APPLICATION_CREDENTIALS) {
+      process.env.GOOGLE_APPLICATION_CREDENTIALS = env.GOOGLE_APPLICATION_CREDENTIALS;
+    }
+    
+    // In Vercel (production), write the JSON string to a temp file and use that
+    if (env.GOOGLE_CREDENTIALS_JSON) {
+      const fs = await import('fs');
+      const tempPath = '/tmp/google-credentials.json';
+      fs.writeFileSync(tempPath, env.GOOGLE_CREDENTIALS_JSON);
+      process.env.GOOGLE_APPLICATION_CREDENTIALS = tempPath;
+    }
+
+    // Initialize the unified SDK for Vertex AI
+    const ai = new GoogleGenAI({
+      vertexai: true, 
+      project: projectId,
+      location: location
+    });
     
     const prompt = `You are a strict translation utility. Listen to the provided audio spoken in Hazara Hindko (the specific Hindko dialect spoken in the Hazara region of Pakistan KPK). Return a JSON object with exactly two keys: \`exact_hindko\` (the literal transcription of the exact spoken words transliterated into Roman script) and \`roman_urdu\` (the meaning translated into Roman Urdu script). Instruct: where there is "vaddi" change it to "baddi", where there is "vekhde" change it to "dekhde", where there is "jeda" change it to "jerha", and where there is "chhod" change it to "chorh". Example output: { "exact_hindko": "tu kai krdain", "roman_urdu": "tum kia kr rhai ho" }`;
 
