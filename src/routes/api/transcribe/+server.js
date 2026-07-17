@@ -52,11 +52,11 @@ export async function POST({ request }) {
       });
     }
     
-    const prompt = `You are a strict translation utility. Listen to the provided audio spoken in Hazara Hindko (the specific Hindko dialect spoken in the Hazara region of Pakistan KPK). Transliterate the exact spoken words into Roman script, and translate the meaning into Roman Urdu script. Apply these specific spelling rules to your transcription: where there is "vaddi" change it to "baddi", where there is "vekhde" change it to "dekhde", where there is "jeda" change it to "jerha", where there is "chhod" change it to "chorh", where there is "jane" change it to "julden", where there is "vi" change it to "b", where there is "rehnen" change it to "rehden", where there is "ajda" change it to "ajra", where there is "ana" change it to "arna", and where there is "ji" change it to "g". 
+    const prompt = `You are a strict translation utility. Listen to the provided audio spoken in Hazara Hindko (the specific Hindko dialect spoken in the Hazara region of Pakistan KPK). Transliterate the exact spoken words into Roman script, and translate the meaning into Roman Urdu script. Apply these specific spelling rules ONLY to your EXACT transcription (Hazara Hindko), DO NOT apply them to the ROMAN translation (Roman Urdu): where there is "vaddi" change it to "baddi", where there is "vekhde" change it to "dekhde", where there is "jeda" change it to "jerha", where there is "chhod" change it to "chorh", where there is "jane" change it to "julden", where there is "vi" change it to "b", where there is "rehnen" change it to "rehden", where there is "ajda" change it to "ajra", where there is "ana" change it to "arna", and where there is "ji" change it to "g". 
 
 You MUST output exactly in this text format and nothing else:
 EXACT: <literal transcription of the exact spoken words in Roman script>
-ROMAN: <the meaning translated into Roman Urdu script>
+ROMAN: <the meaning translated into Roman Urdu script, which should be natural Roman Urdu without applying the above spelling rules>
 
 Example output:
 EXACT: tu kai krdain

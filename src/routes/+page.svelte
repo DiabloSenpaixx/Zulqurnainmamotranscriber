@@ -68,20 +68,22 @@
     });
   });
 
-  function formatSentences(text) {
+  function formatSentences(text, applyDictionary = true) {
     if (!text) return '';
     text = text.trim();
     if (!text) return '';
     
-    text = text.replace(/\bvich\b/gi, match => match.charAt(0) === 'V' ? 'Bich' : 'bich');
-    text = text.replace(/\bjyada\b/gi, match => match.charAt(0) === 'J' ? 'Zaida' : 'zaida');
-    text = text.replace(/\bvaddi\b/gi, match => match.charAt(0) === 'V' ? 'Baddi' : 'baddi');
-    text = text.replace(/\bjane\b/gi, match => match.charAt(0) === 'J' ? 'Julden' : 'julden');
-    text = text.replace(/\bvi\b/gi, match => match.charAt(0) === 'V' ? 'B' : 'b');
-    text = text.replace(/\brehnen\b/gi, match => match.charAt(0) === 'R' ? 'Rehden' : 'rehden');
-    text = text.replace(/\bajda\b/gi, match => match.charAt(0) === 'A' ? 'Ajra' : 'ajra');
-    text = text.replace(/\bana\b/gi, match => match.charAt(0) === 'A' ? 'Arna' : 'arna');
-    text = text.replace(/\bji\b/gi, match => match.charAt(0) === 'J' ? 'G' : 'g');
+    if (applyDictionary) {
+      text = text.replace(/\bvich\b/gi, match => match.charAt(0) === 'V' ? 'Bich' : 'bich');
+      text = text.replace(/\bjyada\b/gi, match => match.charAt(0) === 'J' ? 'Zaida' : 'zaida');
+      text = text.replace(/\bvaddi\b/gi, match => match.charAt(0) === 'V' ? 'Baddi' : 'baddi');
+      text = text.replace(/\bjane\b/gi, match => match.charAt(0) === 'J' ? 'Julden' : 'julden');
+      text = text.replace(/\bvi\b/gi, match => match.charAt(0) === 'V' ? 'B' : 'b');
+      text = text.replace(/\brehnen\b/gi, match => match.charAt(0) === 'R' ? 'Rehden' : 'rehden');
+      text = text.replace(/\bajda\b/gi, match => match.charAt(0) === 'A' ? 'Ajra' : 'ajra');
+      text = text.replace(/\bana\b/gi, match => match.charAt(0) === 'A' ? 'Arna' : 'arna');
+      text = text.replace(/\bji\b/gi, match => match.charAt(0) === 'J' ? 'G' : 'g');
+    }
     
     text = text.replace(/(^\s*|[.!?]\s+)(.)/g, (match, p1, p2) => p1 + p2.toUpperCase());
     
@@ -177,10 +179,10 @@
         const romanMatch = fullText.match(/ROMAN:\s*(.*)/s);
         
         if (exactMatch) {
-          exactHindko = formatSentences(exactMatch[1].trim());
+          exactHindko = formatSentences(exactMatch[1].trim(), true);
         }
         if (romanMatch) {
-          romanUrdu = formatSentences(romanMatch[1].trim());
+          romanUrdu = formatSentences(romanMatch[1].trim(), false);
         }
       }
       
@@ -221,6 +223,7 @@
       >
         <option value="gemini-3.1-flash-lite">Gemini 3.1 Flash Lite (Fully Paid)</option>
         <option value="gemini-2.5-flash">Gemini 2.5 Flash (Fully Paid)</option>
+        <option value="gemini-2.5-pro">Gemini 2.5 Pro (Fully Paid)</option>
       </select>
     </div>
   </header>
