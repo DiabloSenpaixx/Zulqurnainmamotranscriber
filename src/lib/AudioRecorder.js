@@ -97,7 +97,7 @@ export class AudioRecorder {
       });
     }
     
-    const options = { mimeType: 'audio/webm' };
+    const options = { mimeType: 'audio/webm', audioBitsPerSecond: 16000 };
     try {
       this.mediaRecorder = new MediaRecorder(this.stream, options);
     } catch (e) {
