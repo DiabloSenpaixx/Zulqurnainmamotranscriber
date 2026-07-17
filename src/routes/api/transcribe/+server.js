@@ -36,12 +36,21 @@ export async function POST({ request }) {
       process.env.GOOGLE_APPLICATION_CREDENTIALS = tempPath;
     }
 
-    // Initialize the unified SDK for Vertex AI
-    const ai = new GoogleGenAI({
-      vertexai: true, 
-      project: projectId,
-      location: location
-    });
+    // Initialize the unified SDK
+    let ai;
+    if (env.GEMINI_API_KEY) {
+      // Use Google AI Studio (Fastest, uses API Key)
+      ai = new GoogleGenAI({
+        apiKey: env.GEMINI_API_KEY
+      });
+    } else {
+      // Fallback to Vertex AI if no API key is provided
+      ai = new GoogleGenAI({
+        vertexai: true, 
+        project: projectId,
+        location: location
+      });
+    }
     
     const prompt = `You are a strict translation utility. Listen to the provided audio spoken in Hazara Hindko (the specific Hindko dialect spoken in the Hazara region of Pakistan KPK). Transliterate the exact spoken words into Roman script, and translate the meaning into Roman Urdu script. Apply these specific spelling rules to your transcription: where there is "vaddi" change it to "baddi", where there is "vekhde" change it to "dekhde", where there is "jeda" change it to "jerha", where there is "chhod" change it to "chorh", where there is "jane" change it to "julden", where there is "vi" change it to "b", where there is "rehnen" change it to "rehden", where there is "ajda" change it to "ajra", where there is "ana" change it to "arna", and where there is "ji" change it to "g". 
 
