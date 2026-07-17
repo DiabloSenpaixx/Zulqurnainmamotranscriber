@@ -88,6 +88,7 @@
       text = text.replace(/\bbhan\b/gi, match => match.charAt(0) === 'B' ? 'Phan' : 'phan');
       text = text.replace(/\bapni\b/gi, match => match.charAt(0) === 'A' ? 'Apri' : 'apri');
       text = text.replace(/\bghat\b/gi, match => match.charAt(0) === 'G' ? 'Khat' : 'khat');
+      text = text.replace(/\bsakdi\b/gi, match => match.charAt(0) === 'S' ? 'Akdi' : 'akdi');
     }
     
     text = text.replace(/(^\s*|[.!?]\s+)(.)/g, (match, p1, p2) => p1 + p2.toUpperCase());
