@@ -81,6 +81,7 @@
     text = text.replace(/\brehnen\b/gi, match => match.charAt(0) === 'R' ? 'Rehden' : 'rehden');
     text = text.replace(/\bajda\b/gi, match => match.charAt(0) === 'A' ? 'Ajra' : 'ajra');
     text = text.replace(/\bana\b/gi, match => match.charAt(0) === 'A' ? 'Arna' : 'arna');
+    text = text.replace(/\bji\b/gi, match => match.charAt(0) === 'J' ? 'G' : 'g');
     
     text = text.replace(/(^\s*|[.!?]\s+)(.)/g, (match, p1, p2) => p1 + p2.toUpperCase());
     
