@@ -1,0 +1,62 @@
+import { GoogleGenAI } from '@google/genai';
+import { json } from '@sveltejs/kit';
+import { env } from '$env/dynamic/private';
+
+export async function POST({ request }) {
+  try {
+    const data = await request.formData();
+    const audioBlob = data.get('audio');
+    const model = data.get('model');
+    
+    if (!audioBlob || !model) {
+      return json({ error: 'Missing audio or model parameters.' }, { status: 400 });
+    }
+
+    const apiKey = env.GEMINI_API_KEY;
+    if (!apiKey) {
+      return json({ error: 'GEMINI_API_KEY is not configured on the server.' }, { status: 500 });
+    }
+
+    const buffer = await audioBlob.arrayBuffer();
+    const base64Audio = Buffer.from(buffer).toString('base64');
+
+    const ai = new GoogleGenAI({ apiKey });
+    
+    const prompt = `You are a strict translation utility. Listen to the provided audio spoken in Hazara Hindko (the specific Hindko dialect spoken in the Hazara region of Pakistan KPK). Return a JSON object with exactly two keys: \`exact_hindko\` (the literal transcription of the exact spoken words transliterated into Roman script) and \`roman_urdu\` (the meaning translated into Roman Urdu script). Instruct: where there is "vaddi" change it to "baddi", where there is "vekhde" change it to "dekhde", where there is "jeda" change it to "jerha", and where there is "chhod" change it to "chorh". Example output: { "exact_hindko": "tu kai krdain", "roman_urdu": "tum kia kr rhai ho" }`;
+
+    const response = await ai.models.generateContent({
+      model: model,
+      contents: [
+        {
+          role: 'user',
+          parts: [
+            { text: prompt },
+            {
+              inlineData: {
+                data: base64Audio,
+                mimeType: audioBlob.type || 'audio/webm'
+              }
+            }
+          ]
+        }
+      ],
+      config: {
+        responseMimeType: "application/json",
+        responseSchema: {
+          type: "OBJECT",
+          properties: {
+            exact_hindko: { type: "STRING" },
+            roman_urdu: { type: "STRING" }
+          },
+          required: ["exact_hindko", "roman_urdu"]
+        }
+      }
+    });
+
+    const parsedResponse = JSON.parse(response.text);
+    return json(parsedResponse);
+  } catch (error) {
+    console.error('Transcription error:', error);
+    return json({ error: 'Failed to transcribe audio.', details: error.message }, { status: 500 });
+  }
+}
