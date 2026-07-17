@@ -43,7 +43,7 @@ export async function POST({ request }) {
       location: location
     });
     
-    const prompt = `You are a strict translation utility. Listen to the provided audio spoken in Hazara Hindko (the specific Hindko dialect spoken in the Hazara region of Pakistan KPK). Return a JSON object with exactly two keys: \`exact_hindko\` (the literal transcription of the exact spoken words transliterated into Roman script) and \`roman_urdu\` (the meaning translated into Roman Urdu script). Instruct: where there is "vaddi" change it to "baddi", where there is "vekhde" change it to "dekhde", where there is "jeda" change it to "jerha", where there is "chhod" change it to "chorh", where there is "jane" change it to "julden", and where there is "vi" change it to "b". Example output: { "exact_hindko": "tu kai krdain", "roman_urdu": "tum kia kr rhai ho" }`;
+    const prompt = `You are a strict translation utility. Listen to the provided audio spoken in Hazara Hindko (the specific Hindko dialect spoken in the Hazara region of Pakistan KPK). Return a JSON object with exactly two keys: \`exact_hindko\` (the literal transcription of the exact spoken words transliterated into Roman script) and \`roman_urdu\` (the meaning translated into Roman Urdu script). Instruct: where there is "vaddi" change it to "baddi", where there is "vekhde" change it to "dekhde", where there is "jeda" change it to "jerha", where there is "chhod" change it to "chorh", where there is "jane" change it to "julden", where there is "vi" change it to "b", and where there is "rehnen" change it to "rehden". Example output: { "exact_hindko": "tu kai krdain", "roman_urdu": "tum kia kr rhai ho" }`;
 
     const response = await ai.models.generateContent({
       model: model,
