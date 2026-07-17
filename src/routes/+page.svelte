@@ -77,6 +77,7 @@
     text = text.replace(/\bjyada\b/gi, match => match.charAt(0) === 'J' ? 'Zaida' : 'zaida');
     text = text.replace(/\bvaddi\b/gi, match => match.charAt(0) === 'V' ? 'Baddi' : 'baddi');
     text = text.replace(/\bjane\b/gi, match => match.charAt(0) === 'J' ? 'Julden' : 'julden');
+    text = text.replace(/\bvi\b/gi, match => match.charAt(0) === 'V' ? 'B' : 'b');
     
     text = text.replace(/(^\s*|[.!?]\s+)(.)/g, (match, p1, p2) => p1 + p2.toUpperCase());
     
