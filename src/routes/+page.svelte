@@ -94,6 +94,7 @@
       text = text.replace(/\bbooda\b/gi, match => match.charAt(0) === 'B' ? 'Boota' : 'boota');
       text = text.replace(/\bbaqt\b/gi, match => match.charAt(0) === 'B' ? 'Vaqt' : 'vaqt');
       text = text.replace(/\bghr\b/gi, match => match.charAt(0) === 'G' ? 'Kaar' : 'kaar');
+      text = text.replace(/\btrup\b/gi, match => match.charAt(0) === 'T' ? 'Trut' : 'trut');
     }
     
     text = text.replace(/(^\s*|[.!?]\s+)(.)/g, (match, p1, p2) => p1 + p2.toUpperCase());
