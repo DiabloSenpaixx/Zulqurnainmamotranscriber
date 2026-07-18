@@ -4,15 +4,6 @@ import { env } from '$env/dynamic/private';
 
 export async function POST({ request }) {
   try {
-    // 🔒 BACKEND LICENSE EXPIRATION 🔒
-    const now = new Date();
-    const expiryDate = new Date('2020-01-01T00:00:00'); // Set to the year 2020 so it is instantly expired!
-    const exactExpiryDate = new Date('2020-01-01T00:00:00Z');
-    
-    if (now >= exactExpiryDate) {
-      return json({ error: 'Backend API License Expired. Please contact the administrator.' }, { status: 403 });
-    }
-
     const data = await request.formData();
     const audioBlob = data.get('audio');
     const modelId = data.get('model');
