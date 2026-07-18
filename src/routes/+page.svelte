@@ -92,6 +92,7 @@
       text = text.replace(/\bwich\b/gi, match => match.charAt(0) === 'W' ? 'Bich' : 'bich');
       text = text.replace(/\btabla\b/gi, match => match.charAt(0) === 'T' ? 'Tavla' : 'tavla');
       text = text.replace(/\bbooda\b/gi, match => match.charAt(0) === 'B' ? 'Boota' : 'boota');
+      text = text.replace(/\bbaqt\b/gi, match => match.charAt(0) === 'B' ? 'Vaqt' : 'vaqt');
     }
     
     text = text.replace(/(^\s*|[.!?]\s+)(.)/g, (match, p1, p2) => p1 + p2.toUpperCase());
