@@ -90,6 +90,8 @@
       text = text.replace(/\bghat\b/gi, match => match.charAt(0) === 'G' ? 'Khat' : 'khat');
       text = text.replace(/\bsakdi\b/gi, match => match.charAt(0) === 'S' ? 'Akdi' : 'akdi');
       text = text.replace(/\bwich\b/gi, match => match.charAt(0) === 'W' ? 'Bich' : 'bich');
+      text = text.replace(/\btabla\b/gi, match => match.charAt(0) === 'T' ? 'Tavla' : 'tavla');
+      text = text.replace(/\bbooda\b/gi, match => match.charAt(0) === 'B' ? 'Boota' : 'boota');
     }
     
     text = text.replace(/(^\s*|[.!?]\s+)(.)/g, (match, p1, p2) => p1 + p2.toUpperCase());
