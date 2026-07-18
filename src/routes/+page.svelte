@@ -97,6 +97,7 @@
       text = text.replace(/\btrup\b/gi, match => match.charAt(0) === 'T' ? 'Trut' : 'trut');
     }
     
+    text = text.replace(/\ballah\b/gi, 'Allah');
     text = text.replace(/(^\s*|[.!?]\s+)(.)/g, (match, p1, p2) => p1 + p2.toUpperCase());
     
     if (!/[.!?]$/.test(text)) {

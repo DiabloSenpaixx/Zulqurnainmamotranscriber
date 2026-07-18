@@ -58,6 +58,8 @@ CRITICAL INSTRUCTION FOR "EXACT": Your EXACT output MUST be a strict, raw, liter
 
 Apply these specific spelling rules ONLY to your EXACT transcription (Hazara Hindko), DO NOT apply them to the ROMAN translation (Roman Urdu): where there is "vaddi" change it to "baddi", where there is "vekhde" change it to "dekhde", where there is "jeda" change it to "jerha", where there is "chhod" change it to "chorh", where there is "jane" change it to "julden", where there is "vi" change it to "b", where there is "rehnen" change it to "rehden", where there is "ajda" change it to "ajra", where there is "ana" change it to "arna", where there is "ji" change it to "g", where there is "gande" change it to "kendey", where there is "duji" change it to "doi", where there is "bhan" change it to "phan", where there is "apni" change it to "apri", where there is "ghat" change it to "khat", where there is "sakdi" change it to "akdi", where there is "wich" change it to "bich", where there is "tabla" change it to "tavla", where there is "booda" change it to "boota", where there is "baqt" change it to "vaqt", where there is "ghr" change it to "kaar", and where there is "trup" change it to "trut".
 
+Furthermore, ALWAYS capitalize the word "Allah" whenever it appears in BOTH your EXACT transcription and ROMAN translation.
+
 IMPORTANT: You must transcribe and translate the ENTIRE audio. Do not summarize, do not skip any parts, and do not stop early. Ensure both EXACT and ROMAN sections are complete for the full duration of the audio.
 
 You MUST output exactly in this text format and nothing else:
