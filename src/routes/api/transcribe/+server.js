@@ -7,7 +7,7 @@ export async function POST({ request }) {
     const data = await request.formData();
     const audioBlob = data.get('audio');
     const modelId = data.get('model');
-    const model = modelId || 'gemini-3.5-flash';
+    const model = modelId || 'gemini-3.1-flash-lite';
     
     if (!audioBlob || !model) {
       return json({ error: 'Missing audio or model parameters.' }, { status: 400 });
