@@ -64,7 +64,7 @@ IMPORTANT: You must transcribe and translate the ENTIRE audio. Do not summarize,
 
 You MUST output exactly in this text format and nothing else:
 EXACT: <literal phonetic transcription of the ENTIRE audio in Roman script>
-ROMAN: <the complete meaning translated into natural, fluent Roman Urdu script as a full sentence. Do NOT do a literal word-by-word translation. Instead, convey the overall meaning of the full sentence naturally, without applying the spelling rules above>
+ROMAN: <the complete meaning translated into natural, fluent standard Roman Urdu script as a full sentence. You MUST use pure Urdu vocabulary and NEVER leak any Hindko words (e.g., if they say "tap raha", use the proper Urdu equivalent like "garam ho raha"). Do NOT do a literal word-by-word translation. Instead, convey the overall meaning of the full sentence naturally, without applying the spelling rules above>
 
 Example output:
 EXACT: tu kai krdain
