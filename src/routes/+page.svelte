@@ -98,6 +98,7 @@
       text = text.replace(/\bajle\b/gi, match => match.charAt(0) === 'A' ? 'Ajulai' : 'ajulai');
       text = text.replace(/\bsakda\b/gi, match => match.charAt(0) === 'S' ? 'Akda' : 'akda');
       text = text.replace(/\bparhaya\b/gi, match => match.charAt(0) === 'P' ? 'Parhalya' : 'parhalya');
+      text = text.replace(/\bmut\b/gi, match => match.charAt(0) === 'M' ? 'Much' : 'much');
     }
     
     text = text.replace(/\ballah\b/gi, 'Allah');
