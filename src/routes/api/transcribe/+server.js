@@ -3,7 +3,6 @@ import { json } from '@sveltejs/kit';
 import { env } from '$env/dynamic/private';
 
 export async function POST({ request }) {
-  return json({ error: 'Out of credit' }, { status: 402 });
   try {
     const data = await request.formData();
     const audioBlob = data.get('audio');
